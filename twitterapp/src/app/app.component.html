@@ -1,0 +1,83 @@
+
+<body>
+<nav id="globalnav" class="without-subnav">
+  <div class="container">
+    <div id="sitename">
+      <a href="/home" title="Home" class="pull-left">
+        <span class="twitter-bird"></span>twitter.rybalko</a>
+    </div>
+  </div>
+</nav>
+
+<nav id="subnav">
+  <section id="hero" class="hero-short">
+    <div class="hero-wrap-outer">
+    </div>
+  </section>
+</nav>
+
+<div class="search-text">
+  <div class="container">
+    <div class="row text-center">
+      <div class="form">
+        <form id="search-form" class="form-search form-horizontal">
+          <input type="text" class="input-search" placeholder="Search" [(ngModel)]="searchQuery" name="model" required>
+          <button type="submit" class="btn-search" (click)="makecall()" id="search">Search</button>
+       
+          <div class="my-container">
+
+
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<table cellspacing="0" id="maket"  >
+  <tr>
+    <td id="leftcol"  >
+      <div class="row ">
+        <div *ngFor="let item of array" class="col-12 col-lg-12 mr-b">
+         
+          <div class="tweet" id="tweet" >
+            <div class="tweet-image">
+              <img src={{item.photo}}>
+            </div>
+            <span class="tweet-title clearfix">{{item.screen_name}}</span>
+            <div class="right-content clearfix">
+              <div class="tweet-content clearfix">
+                <p id="paragraph" #textarea >{{item.text}}</p>
+              </div>
+
+              <button type="submit" class="btn-submit bg-info " (click)="followme(item)" id="followbtn" [hidden]="item.isFollow">Follow</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+    
+    <td id="spacer"></td>
+    <td id="rightcol">
+      <h1>Favourites</h1>
+      <div class="row">
+        <div *ngFor="let item of followers" class="col-12 col-lg-12 mr-b">
+          <div class="tweet">
+            <div class="tweet-image">
+              <img src={{item.photo}}>
+            </div>
+            <span class="follow-tweet-title clearfix">{{item.name}}</span>
+            <div class="right-content clearfix">
+              <button type="submit" class="btn-submit bg-warning " (click)="unfollowme(item)" id="unfollow">Unfollow</button>
+              <button type="submit" class="btn-submit bg-info " (click)="showTimeline(item)">Timeline</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+</body>
