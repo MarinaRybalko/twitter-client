@@ -27,6 +27,7 @@ const $ = require('../../node_modules/jquery');
 const JqueryUI = require('../../node_modules/jquery-ui');
 
 
+
 var cb = new Codebird;
 cb.setConsumerKey('9Y7RzNpuPx67eonwf2AW2JzEP', 'LMhjl8xkti2ilYonD4z7MPIjdhbqL4M25x9IqQkrmBacVwnbbJ');
 cb.setToken('959577198377295872-m1IWggUyxvSPOuHauOSly3qTBedxu7E', 'N9fXvTWvi1WFR0Odg6YJ0xwIDTHBSwsJ3m07YazsKwN3q');
@@ -41,9 +42,21 @@ cb.setToken('959577198377295872-m1IWggUyxvSPOuHauOSly3qTBedxu7E', 'N9fXvTWvi1WFR
 export class AppComponent implements AfterViewInit, OnInit {
   @ViewChild('#paragraph') textarea: ElementRef
 
-  ngAfterViewInit() {
+  ngAfterViewInit () {
+    !function(d,s,id){
+        var js: any,
+            fjs=d.getElementsByTagName(s)[0],
+            p='https';
+        if(!d.getElementById(id)){
+            js=d.createElement(s);
+            js.id=id;
+            js.src=p+"://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js,fjs);
+        }
+    }
+    (document,"script","twitter-wjs");
+}
 
-  }
   private routeSubscription: Subscription;
   private querySubscription: Subscription;
   isAvailable = true;
@@ -57,7 +70,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   constructor(private followService: FollowService, private http: Http, private activatedRoute: ActivatedRoute, private location: Location, private router: Router) {
     this.followers = this.followService.getFollowers();
     search = this.searchQuery;
-   
+
 
   }
   onSearchPressingEnter(e) {
@@ -96,7 +109,7 @@ export class AppComponent implements AfterViewInit, OnInit {
 
     }
     $("#search").attr('disabled', 'disabled')
-    $("#leftcol").addClass("loading");
+    $("#leftcol .row").addClass("loading");
     let help: UserTweet[] = [];
     cb.__call(
       'search_tweets',
@@ -125,7 +138,7 @@ export class AppComponent implements AfterViewInit, OnInit {
           console.log(reply);
 
         $("#leftcol").ready(function () { $("#search").removeAttr('disabled') });
-        $("#leftcol").ready(function () { $("#leftcol").removeClass('loading') });
+        $("#leftcol .row").ready(function () { $("#leftcol .row").removeClass('loading') });
         if (search_param('q') != '' && !(window.location.href.indexOf('user') > -1)) {
           $(window).scroll(function () {
 
@@ -161,7 +174,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
   followme(item) {
     timeLine=1;
-   
+
     item.isFollow = true;
     let follow = this.followService.getFollowers();
     this.followService.addFollower(JSON.stringify(item))
@@ -196,12 +209,12 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
   showTimeline=function(item) {
     $(window ).scrollTop(0);
-   
-      
-  alert("in timelimne"+timeLine)
 
-    $("#leftcol").addClass("loading");
-   
+
+
+
+    $("#leftcol .row").addClass("loading");
+
     this.router.navigate(['/'], {
       queryParams: { user: item.name },
       relativeTo: this.activatedRoute
@@ -218,7 +231,8 @@ export class AppComponent implements AfterViewInit, OnInit {
       },
       function (reply) {
         console.log(reply);
-        $.each(reply, function (key, value) {
+        $("#leftcol ").ready(function () { $("#leftcol .row").removeClass('loading') });
+        $.each(reply,  function (key, value) {
 
           if (value.retweeted_status != undefined && value.retweeted_status.full_text.indexOf('https://t.co/') != -1) {
             var link_array = value.retweeted_status.full_text.split('https://t.co/');
@@ -231,16 +245,16 @@ export class AppComponent implements AfterViewInit, OnInit {
 
         });
 
-        $("#leftcol").ready(function () { $("#leftcol").removeClass('loading') });
+
         help.forEach(element => {
           element.isFollow = true;
         });
         console.log(help)
       });
     if (search_param('user') != '' && !(window.location.href.indexOf('q') > -1)) {
-      
+
       $(window).scroll(function () {
-      
+
 
         if ($(window).scrollTop() + 1 >= $(document).height() - $(window).height()) {
 
@@ -263,6 +277,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     $('.js-overlay-campaign').fadeOut();
     $('table').css('filter', 'none');
     $('#overlay img ').remove();
+    $('#overlay blockquote ').remove();
   }
   CloseByMousePressing(e) {
     $("table").ready(function () { $('button').each(function () { $("button").removeAttr('disabled') }) });
@@ -296,10 +311,26 @@ export class AppComponent implements AfterViewInit, OnInit {
 
 
   }
-  showFullTweet(ready_string) {
-    if (ready_string != null)
-      window.open(ready_string, "yyyyy", "width=480,height=360,resizable=no,toolbar=no,menubar=no,location=no,status=no");
+  showFullTweet(item)
+  {
+    if (item.linkMedia != null)
+    {
+    $('div>a').addClass('disabled');
+    $("table").ready(function () { $('button').each(function () { $("button").attr('disabled', 'disabled') }) });
+
+
+
+    $('#overlay img').addClass('class-img');
+    $('#overlay').append('<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">'+item.text+' <a class="twitter-timeline" href="'+item.linkMedia+'">'+item.linkMedia+' </blockquote>');
+ 
+
+
+    $('table').css('filter', 'blur(3px)');
+    $('.js-overlay-campaign').fadeIn();
+     }
+
   }
+
   saveCurrentItem(item) {
     current = item.id;
     console.log(current);
@@ -395,7 +426,7 @@ var internal = function (help) {
         else help.push(new UserTweet(value.full_text, value.user.screen_name, value.user.profile_image_url, value.id, null));
         $("#downloading").ready(function () { $("#downloading").removeClass('down-loading') });
       })
-     
+
       if (search_param('q') != '' && !(window.location.href.indexOf('user') > -1)) {
 
         highlight();
@@ -471,7 +502,7 @@ var TimelineInternal = function (help, name) {
 
       if ($(window).scrollTop() + 1 >= $(document).height() - $(window).height()) {
 
-        
+
         alert("in timelimne"+timeLine)
         console.log(this.array);
         TimelineInternal(help, name)

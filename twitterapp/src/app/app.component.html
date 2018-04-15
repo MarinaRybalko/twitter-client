@@ -1,5 +1,8 @@
+
+
 <body>
   <div class="container form main-class">
+
 
     <div class="overlay js-overlay-campaign" (click)="CloseByMousePressing($event)">
       <div class="popup js-popup-campaign" id="overlay" (click)="ClosePicture()">
@@ -32,7 +35,7 @@
       <tr>
         <td id="leftcol">
           <div class="row">
-            <div *ngFor="let item of array" class="col-12 col-lg-12 mr-b">
+            <div *ngFor="let item of array" class="col-12 col-lg-12 mr-b " id="main-content">
 
               <div class="tweet" id="tweet" dnd-draggable [dragEnabled]="true" (onDragStart)="saveCurrentItem(item)">
                 <div class="tweet-image ">
@@ -51,7 +54,7 @@
                     </p>
 
                   </div>
-                  <button class="show-more" (click)="showFullTweet(item.linkMedia)" [hidden]="isHasLink(item)">Show more</button>
+                  <button class="show-more" (click)="showFullTweet(item)" [hidden]="isHasLink(item)">Show more</button>
                   <hr>
                   <button id="followbtn" type="submit" (click)="followme(item)" [hidden]="item.isFollow">Follow</button>
                 </div>
