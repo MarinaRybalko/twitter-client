@@ -14,7 +14,7 @@ body {
   overflow: auto;
   width: 100%;
   margin: 0;
-  background: url('../../back.jpg');
+  background: url('../../image/back.jpg');
   height: 100%;
 }
 
@@ -43,10 +43,10 @@ tbody>tr:first-child {
 .down-loading {
   width: 100%;
   height: 50px;
-  background: url('../../load.gif') 40% no-repeat;
+  background: url('../../image/load.gif') 40% no-repeat;
   background-size: 15%;
   background-position-x: 43%;
-  margin-top: -20px;
+  margin-top: 140px;
   z-index: 9999;
   bottom: 0px;
   left: 0px;
@@ -55,7 +55,7 @@ tbody>tr:first-child {
 
 .loading {
  
-  background: url('../../load.gif') 30% no-repeat;
+  background: url('../../image/load.gif') 30% no-repeat;
   text-align: center;
   background-size:15%;
   background-position-x: 73%;
@@ -69,7 +69,7 @@ tbody>tr:first-child {
 }
 
 .no-results {
-  background: url('../../no-results.jpg') no-repeat;
+  background: url('../../image/no-results.jpg') no-repeat;
   background-position-y: -1em;
   background-size: 80%;
   height: 90vh;
@@ -92,7 +92,7 @@ tbody>tr:first-child {
 }
 
 #search {
-  background: url('../../search.png') 100% no-repeat;
+  background: url('../../image/search.png') 100% no-repeat;
   background-size: 100% 100%;
   width: 40px;
   height: 40px;
@@ -107,14 +107,10 @@ tbody>tr:first-child {
   opacity: 0.5;
 }
 
-.enter-search-terms {
-  background: url('../../enter-query.jpg') 50% no-repeat;
-  background-position-y: 3em;
-  background-size: 80%
-}
+
 
 .error-msg {
-  background: url('../../error.jpg') 50% no-repeat;
+  background: url('../../image/error.jpg') 50% no-repeat;
   background-position-y: 0.2em;
   background-size: 52%;
   height: 100vh;
@@ -222,6 +218,8 @@ a:-webkit-any-link {
 input,
 button {
   border-radius: 10px;
+  outline:none;
+
 }
 
 .search-text .input-search {
@@ -428,8 +426,8 @@ h1 {
 
 .popup {
   position: fixed;
-  max-width: 400px;
-  max-height: 400px;
+  max-width: 500px;
+  max-height: 500px;
   z-index: 9999;
   opacity: 1;
   left: 50%;
@@ -484,8 +482,8 @@ h1 {
 }
 
 .overlay {
-  max-width: 400px;
-  max-height: 400px;
+  max-width: 600px;
+  max-height: 600px;
   top: 0;
   left: 0;
   display: none

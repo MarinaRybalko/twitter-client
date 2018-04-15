@@ -126,7 +126,7 @@ export class AppComponent implements AfterViewInit, OnInit {
             var link_array = value.retweeted_status.full_text.split('https://t.co/');
             var ready_link = 'https://t.co/' + link_array[link_array.length - 1];
 
-            help.push(new UserTweet(value.retweeted_status.full_text, value.user.screen_name, value.user.profile_image_url, value.id, ready_link));
+            help.push(new UserTweet(value.retweeted_status.full_text, value.user.screen_name, value.user.profile_image_url, value.id_str, ready_link));
           }
           else {
 
@@ -261,7 +261,7 @@ export class AppComponent implements AfterViewInit, OnInit {
           if(timeLine !=1)
           $("#leftcol").ready(function () { $("#leftcol").removeClass('down-loading') });
           timeLine = timeLine + 1;
-          alert("in timelimne"+timeLine)
+  
           TimelineInternal(help, item.name);
 
         }
@@ -277,7 +277,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     $('.js-overlay-campaign').fadeOut();
     $('table').css('filter', 'none');
     $('#overlay img ').remove();
-    $('#overlay blockquote ').remove();
+    $('#overlay iframe ').remove();
   }
   CloseByMousePressing(e) {
     $("table").ready(function () { $('button').each(function () { $("button").removeAttr('disabled') }) });
@@ -317,14 +317,13 @@ export class AppComponent implements AfterViewInit, OnInit {
     {
     $('div>a').addClass('disabled');
     $("table").ready(function () { $('button').each(function () { $("button").attr('disabled', 'disabled') }) });
+    $('.popup').css('width','500px');
+    $('.popup').css('height','500px');
+    var part= item.screen_name+"/"+"status"+"/"+item.id;
+    var source= 'https://twitframe.com/show?url='+encodeURIComponent('https://twitter.com/'+item.screen_name+'/status/'+item.id+'');
+    var source=source.replace('t.co','twitter.com');
 
-
-
-    $('#overlay img').addClass('class-img');
-    $('#overlay').append('<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">'+item.text+' <a class="twitter-timeline" href="'+item.linkMedia+'">'+item.linkMedia+' </blockquote>');
- 
-
-
+   $('.popup').append('<iframe target="_parent" border=0 frameborder=0 height=100% width=100% allowfullscreen src="'+source+'"</iframe>');
     $('table').css('filter', 'blur(3px)');
     $('.js-overlay-campaign').fadeIn();
      }
@@ -464,7 +463,7 @@ search_param = function (sParam) {
 }
 var TimelineInternal = function (help, name) {
   console.log(page)
-  alert("in timelimne"+timeLine)
+ 
   timeLine = timeLine + 1;
   $("#downloading").addClass("down-loading");
   cb.__call(
@@ -503,7 +502,7 @@ var TimelineInternal = function (help, name) {
       if ($(window).scrollTop() + 1 >= $(document).height() - $(window).height()) {
 
 
-        alert("in timelimne"+timeLine)
+     
         console.log(this.array);
         TimelineInternal(help, name)
 
