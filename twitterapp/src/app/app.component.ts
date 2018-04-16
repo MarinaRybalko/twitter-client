@@ -239,9 +239,9 @@ export class AppComponent implements AfterViewInit, OnInit {
             var ready_link = 'https://t.co/' + link_array[link_array.length - 1];
             console.log(ready_link);
 
-            help.push(new UserTweet(value.retweeted_status.full_text, value.user.screen_name, value.user.profile_image_url, value.id, ready_link));
+            help.push(new UserTweet(value.retweeted_status.full_text, value.user.screen_name, value.user.profile_image_url, value.id_str, ready_link));
           }
-          else help.push(new UserTweet(value.full_text, value.user.screen_name, value.user.profile_image_url, value.id, null));
+          else help.push(new UserTweet(value.full_text, value.user.screen_name, value.user.profile_image_url, value.id_str, null));
 
         });
 
@@ -420,9 +420,9 @@ var internal = function (help) {
           var ready_link = 'https://t.co/' + link_array[link_array.length - 1];
           console.log(ready_link);
 
-          help.push(new UserTweet(value.retweeted_status.full_text, value.user.screen_name, value.user.profile_image_url, value.id, ready_link));
+          help.push(new UserTweet(value.retweeted_status.full_text, value.user.screen_name, value.user.profile_image_url, value.id_str, ready_link));
         }
-        else help.push(new UserTweet(value.full_text, value.user.screen_name, value.user.profile_image_url, value.id, null));
+        else help.push(new UserTweet(value.full_text, value.user.screen_name, value.user.profile_image_url, value.id_str, null));
         $("#downloading").ready(function () { $("#downloading").removeClass('down-loading') });
       })
 
@@ -482,9 +482,9 @@ var TimelineInternal = function (help, name) {
           var ready_link = 'https://t.co/' + link_array[link_array.length - 1];
           console.log(ready_link);
 
-          help.push(new UserTweet(value.retweeted_status.full_text, value.user.screen_name, value.user.profile_image_url, value.id, ready_link));
+          help.push(new UserTweet(value.retweeted_status.full_text, value.user.screen_name, value.user.profile_image_url, value.id_str, ready_link));
         }
-        else help.push(new UserTweet(value.full_text, value.user.screen_name, value.user.profile_image_url, value.id, null));
+        else help.push(new UserTweet(value.full_text, value.user.screen_name, value.user.profile_image_url, value.id_str, null));
       });
 
 
